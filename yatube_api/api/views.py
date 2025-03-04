@@ -10,7 +10,6 @@ from .serializers import (
 from posts.models import Group, Comment, Post, User, Follow
 from .permissions import IsAuthorOrReadOnlyPermission
 from rest_framework.pagination import LimitOffsetPagination
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -80,7 +79,7 @@ class FollowViewSet(viewsets.ModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
     permission_classes = (IsAuthorOrReadOnlyPermission,)
-    filter_backends = (DjangoFilterBackend, filters.SearchFilter,)
+    filter_backends = (filters.SearchFilter,)
     search_fields = ('following__username',)
 
     def get_queryset(self):
